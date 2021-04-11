@@ -1,0 +1,144 @@
+/**
+ *
+ * @author Pawel
+ */
+ // Klasa PointsE
+package com.zetcode;
+
+import javax.swing.*;
+import java.awt.*;
+
+class PointsE extends JFrame {
+    public PointsE() {
+        initUI();
+    }
+
+    private void initUI() {
+        final com.zetcode.Surface surface = new com.zetcode.Surface();
+        add(surface);
+        setSize(1000, 700);
+        setMinimumSize(new Dimension(700,1000));
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            PointsE ex = new PointsE();
+            ex.setVisible(true);
+        });
+    }
+}
+
+// Klasa Surface 
+package com.zetcode;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JPanel;
+
+class Surface extends JPanel {
+    public Surface() { }
+
+    void beziere(int[][] x, int[][] y, Graphics2D g2d){
+        double t;
+        BasicStroke bs1 = new BasicStroke(6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
+        g2d.setStroke(bs1);
+        g2d.setColor(Color.magenta);
+        for(int a=1;a<x.length;a++){
+            for(t=0.0;t<1.0;t+=0.01){
+                double xt= Math.pow(1-t,3)*x[a-1][2] + 3*t*Math.pow(1-t,2)*x[a][0] + 3*Math.pow(t,2)*(1-t)*x[a][1] + Math.pow(t,3)*x[a][2];
+                double yt= Math.pow(1-t,3)*y[a-1][2] + 3*t*Math.pow(1-t,2)*y[a][0] + 3*Math.pow(t,2)*(1-t)*y[a][1] + Math.pow(t,3)*y[a][2];
+
+                g2d.drawLine((int)xt,(int)yt,(int)xt,(int)yt);
+            }
+        }
+        BasicStroke bs2 = new BasicStroke(4, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
+        g2d.setStroke(bs2);
+        for(int b=0;b<x.length;b++){
+            for(int a=0;a<3;a++){
+                int xt= x[b][a];
+                int yt= y[b][a];
+
+                g2d.setColor(Color.black);
+                g2d.drawLine(xt,yt,xt,yt);
+            }
+        }
+
+    }
+
+    void beziere_line(int[] x, int[] y, Graphics2D g2d){
+        double t;
+        g2d.setColor(Color.magenta);
+        for(t=0.0;t<1.0;t+=0.01){
+            double xt= Math.pow(1-t,3)*x[0] + 3*t*Math.pow(1-t,2)*x[1] + 3*Math.pow(t,2)*(1-t)*x[2] + Math.pow(t,3)*x[3];
+            double yt= Math.pow(1-t,3)*y[0] + 3*t*Math.pow(1-t,2)*y[1] + 3*Math.pow(t,2)*(1-t)*y[2] + Math.pow(t,3)*y[3];
+
+            g2d.drawLine((int)xt,(int)yt,(int)xt,(int)yt);
+        }
+        BasicStroke bs2 = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
+        g2d.setStroke(bs2);
+        g2d.setColor(Color.black);
+        for(int a=0;a<3;a++){
+            int xt= x[a];
+            int yt= y[a];
+            g2d.drawLine(xt,yt,xt,yt);
+        }
+    }
+
+    private void doDrawing(Graphics g) {
+         this.setBackground(Color.yellow);
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        int xoff=81; 
+        int yoff=423; 
+        
+        
+        int[][] x = new int[][]{ // wartosci zmiennej x  
+            
+        {81 + xoff, 102 + xoff, 89 + xoff},    
+        {16 + xoff, 211 + xoff, 219 + xoff},
+        {228 + xoff, 264 + xoff, 211 + xoff},
+        {196 + xoff, 146 + xoff, 145 + xoff},
+        {144 + xoff, 145 + xoff, 135 + xoff},
+        {125 + xoff, 333 + xoff, 319 + xoff},
+        {267 + xoff, 367 + xoff, 352 + xoff},
+        {304 + xoff, 469 + xoff, 460 + xoff},
+        {431 + xoff, 404 + xoff, 442 + xoff},
+        {449 + xoff, 376 + xoff, 388 + xoff},
+        {427 + xoff, 378 + xoff, 392 + xoff},
+        {431 + xoff, 299 + xoff, 343 + xoff},
+        {359 + xoff, 314 + xoff, 306 + xoff},
+        {298 + xoff, 233 + xoff, 225 + xoff},
+        };
+        
+        int[][] y = new int[][]{ // wartosci zmiennej y
+
+        {438 + yoff, 160 + yoff, 167 + yoff},
+        {206 + yoff, 161 + yoff, 174 + yoff},
+        {189 + yoff, 275 + yoff, 280 + yoff},
+        {281 + yoff, 293 + yoff, 278 + yoff},
+        {263 + yoff, 410 + yoff, 422 + yoff},
+        {434 + yoff, 208 + yoff, 202 + yoff},
+        {178 + yoff, 278 + yoff, 274 + yoff},
+        {262 + yoff, 227 + yoff, 215 + yoff},
+        {177 + yoff, 495 + yoff, 428 + yoff},
+        {415 + yoff, 427 + yoff, 436 + yoff},
+        {463 + yoff, 291 + yoff, 296 + yoff},
+        {310 + yoff, 327 + yoff, 338 + yoff},
+        {342 + yoff, 306 + yoff, 293 + yoff},
+        {280 + yoff, 446 + yoff, 433 + yoff}
+        };
+
+        beziere(x,y, g2d);
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        doDrawing(g);
+    }
+}
+
